@@ -1,0 +1,18 @@
+driver:
+  name: docker
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: corux/centos7-salt
+
+provisioner:
+  name: salt_solo
+  formula: git
+  state_top:
+    base:
+      "*":
+        - git
+
+suites:
+  - name: default
