@@ -15,9 +15,10 @@ git_ppa_repo:
 {%- endif %}
 {%- elif grains['os_family'] == 'RedHat' %}
 ius_yum_repo:
-  cmd.run:
-    - name: curl -L https://setup.ius.io/ | sh
-    - unless: yum info ius-release
+  pkg.installed:
+    - sources:
+      {% set os = 'centos' if grains['os'] == 'CentOS' else 'rhel' -%}
+      - ius-release: https://{{ os }}{{ grains['osmajorrelease'] }}.iuscommunity.org/ius-release.rpm
 {%- if git_settings.install_pkgrepo %}
     - require_in:
       - pkg: git
