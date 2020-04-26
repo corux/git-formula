@@ -17,8 +17,7 @@ git_ppa_repo:
 ius_yum_repo:
   pkg.installed:
     - sources:
-      {% set os = 'centos' if grains['os'] == 'CentOS' else 'rhel' -%}
-      - ius-release: https://{{ os }}{{ grains['osmajorrelease'] }}.iuscommunity.org/ius-release.rpm
+      - ius-release: https://repo.ius.io/ius-release-el{{ grains['osmajorrelease'] }}.rpm
 {%- if git_settings.install_pkgrepo %}
     - require_in:
       - pkg: git
