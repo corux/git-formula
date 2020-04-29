@@ -8,8 +8,8 @@ include:
 {% if grains["os_family"] == "RedHat" and git_settings.git != "git" %}
 git-replace:
   cmd.run:
-    - name: yum swap git {{ git_settings.git }} -y
-    - onlyif: rpm -q git
+    - name: yum swap -y -- remove git git216 git216-core -- install {{ git_settings.git }}
+    - onlyif: yum -q list installed git git216
     - require_in:
       - pkg: git
 {% endif %}
